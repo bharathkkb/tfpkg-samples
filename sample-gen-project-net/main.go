@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/bharathkkb/tfpkg-samples/sample-project-net/generated/network"
-	"github.com/bharathkkb/tfpkg-samples/sample-project-net/generated/project_factory"
+	"github.com/bharathkkb/tfpkg-samples/sample-gen-project-net/generated/network"
+	"github.com/bharathkkb/tfpkg-samples/sample-gen-project-net/generated/project_factory"
 	"github.com/bharathkkb/tfpkg/pkg/tfgen"
 )
 
@@ -14,7 +14,7 @@ func main() {
 
 	// required attribs for project factory module
 	reqProjParams := &project_factory.RequiredAttrib{
-		Name:           projectNameTFVar.GetRef(), // reference output
+		Name:           projectNameTFVar.Ref(), // reference output
 		BillingAccount: "123",
 		OrgId:          "456",
 	}

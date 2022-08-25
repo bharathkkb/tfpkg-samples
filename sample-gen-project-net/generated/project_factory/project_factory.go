@@ -6,56 +6,56 @@ import "github.com/bharathkkb/tfpkg/pkg/tfgen"
 // Inputs marked as required by the module
 type RequiredAttrib struct {
 	OrgId          string
-	BillingAccount string
 	Name           string
+	BillingAccount string
 }
 
 // Inputs with a default value in the module
 type OptionalAttrib struct {
-	UsageBucketName                      string
-	BucketName                           string
-	BudgetAlertPubsubTopic               string
-	GrantNetworkRole                     bool
-	ConsumerQuotas                       []string
-	GroupRole                            string
-	ActivateApiIdentities                []string
-	BucketUla                            bool
 	EnableSharedVpcHostProject           bool
-	BucketForceDestroy                   bool
-	Lien                                 bool
-	BudgetDisplayName                    string
-	BudgetLabels                         map[string]string
-	LanguageTag                          string
-	Domain                               string
+	GroupRole                            string
 	CreateProjectSa                      bool
-	ActivateApis                         []string
-	Labels                               map[string]string
+	EssentialContacts                    map[string][]string
+	DisableServicesOnDestroy             bool
+	BudgetAmount                         int
+	BudgetDisplayName                    string
+	SvpcHostProjectId                    string
+	GroupName                            string
+	ProjectSaName                        string
+	ActivateApiIdentities                []string
+	Lien                                 bool
+	UsageBucketPrefix                    string
+	BudgetMonitoringNotificationChannels []string
+	BudgetLabels                         map[string]string
+	VpcServiceControlAttachEnabled       bool
+	GrantNetworkRole                     bool
 	BucketLocation                       string
 	BucketLabels                         map[string]string
-	BucketPap                            string
-	VpcServiceControlAttachEnabled       bool
-	RandomProjectId                      bool
-	ProjectId                            string
-	BucketVersioning                     bool
-	AutoCreateNetwork                    bool
-	BudgetAmount                         int
-	GrantServicesSecurityAdminRole       bool
-	SvpcHostProjectId                    string
-	DisableServicesOnDestroy             bool
-	BudgetMonitoringNotificationChannels []string
-	DefaultNetworkTier                   string
-	EssentialContacts                    map[string][]string
-	ProjectSaName                        string
-	UsageBucketPrefix                    string
-	SharedVpcSubnets                     []string
-	DefaultServiceAccount                string
-	DisableDependentServices             bool
-	BudgetAlertSpentPercents             []string
+	BucketForceDestroy                   bool
+	Domain                               string
 	FolderId                             string
-	GroupName                            string
 	SaRole                               string
 	BucketProject                        string
+	BudgetAlertPubsubTopic               string
+	BudgetAlertSpentPercents             []string
 	BudgetAlertSpendBasis                string
+	DefaultNetworkTier                   string
+	ConsumerQuotas                       []string
+	RandomProjectId                      bool
+	UsageBucketName                      string
+	Labels                               map[string]string
+	BucketName                           string
+	BucketUla                            bool
+	AutoCreateNetwork                    bool
+	ProjectId                            string
+	ActivateApis                         []string
+	SharedVpcSubnets                     []string
+	BucketVersioning                     bool
+	DefaultServiceAccount                string
+	GrantServicesSecurityAdminRole       bool
+	LanguageTag                          string
+	BucketPap                            string
+	DisableDependentServices             bool
 	VpcServiceControlPerimeterName       string
 }
 type Mod struct {
@@ -72,164 +72,148 @@ func New(name string, required *RequiredAttrib, optional *OptionalAttrib) Mod {
 		Required: required,
 	}
 	n.AddAttribute("org_id", required.OrgId)
-	n.AddAttribute("billing_account", required.BillingAccount)
 	n.AddAttribute("name", required.Name)
-	n.AddAttribute("usage_bucket_name", optional.UsageBucketName)
-	n.AddAttribute("activate_apis", optional.ActivateApis)
-	n.AddAttribute("auto_create_network", optional.AutoCreateNetwork)
-	n.AddAttribute("project_sa_name", optional.ProjectSaName)
-	n.AddAttribute("default_service_account", optional.DefaultServiceAccount)
-	n.AddAttribute("vpc_service_control_attach_enabled", optional.VpcServiceControlAttachEnabled)
-	n.AddAttribute("bucket_versioning", optional.BucketVersioning)
-	n.AddAttribute("budget_amount", optional.BudgetAmount)
-	n.AddAttribute("bucket_name", optional.BucketName)
-	n.AddAttribute("group_role", optional.GroupRole)
-	n.AddAttribute("activate_api_identities", optional.ActivateApiIdentities)
-	n.AddAttribute("bucket_force_destroy", optional.BucketForceDestroy)
-	n.AddAttribute("language_tag", optional.LanguageTag)
+	n.AddAttribute("billing_account", required.BillingAccount)
+	n.AddAttribute("group_name", optional.GroupName)
+	n.AddAttribute("bucket_project", optional.BucketProject)
 	n.AddAttribute("budget_alert_spend_basis", optional.BudgetAlertSpendBasis)
-	n.AddAttribute("budget_alert_pubsub_topic", optional.BudgetAlertPubsubTopic)
-	n.AddAttribute("budget_labels", optional.BudgetLabels)
+	n.AddAttribute("language_tag", optional.LanguageTag)
+	n.AddAttribute("create_project_sa", optional.CreateProjectSa)
+	n.AddAttribute("budget_amount", optional.BudgetAmount)
 	n.AddAttribute("svpc_host_project_id", optional.SvpcHostProjectId)
-	n.AddAttribute("disable_services_on_destroy", optional.DisableServicesOnDestroy)
-	n.AddAttribute("shared_vpc_subnets", optional.SharedVpcSubnets)
-	n.AddAttribute("grant_network_role", optional.GrantNetworkRole)
+	n.AddAttribute("bucket_pap", optional.BucketPap)
+	n.AddAttribute("enable_shared_vpc_host_project", optional.EnableSharedVpcHostProject)
+	n.AddAttribute("bucket_location", optional.BucketLocation)
+	n.AddAttribute("sa_role", optional.SaRole)
+	n.AddAttribute("domain", optional.Domain)
+	n.AddAttribute("folder_id", optional.FolderId)
 	n.AddAttribute("random_project_id", optional.RandomProjectId)
 	n.AddAttribute("usage_bucket_prefix", optional.UsageBucketPrefix)
-	n.AddAttribute("budget_alert_spent_percents", optional.BudgetAlertSpentPercents)
-	n.AddAttribute("sa_role", optional.SaRole)
-	n.AddAttribute("vpc_service_control_perimeter_name", optional.VpcServiceControlPerimeterName)
-	n.AddAttribute("domain", optional.Domain)
-	n.AddAttribute("bucket_location", optional.BucketLocation)
-	n.AddAttribute("project_id", optional.ProjectId)
-	n.AddAttribute("grant_services_security_admin_role", optional.GrantServicesSecurityAdminRole)
-	n.AddAttribute("group_name", optional.GroupName)
-	n.AddAttribute("folder_id", optional.FolderId)
-	n.AddAttribute("bucket_project", optional.BucketProject)
-	n.AddAttribute("consumer_quotas", optional.ConsumerQuotas)
-	n.AddAttribute("budget_display_name", optional.BudgetDisplayName)
-	n.AddAttribute("budget_monitoring_notification_channels", optional.BudgetMonitoringNotificationChannels)
-	n.AddAttribute("essential_contacts", optional.EssentialContacts)
-	n.AddAttribute("disable_dependent_services", optional.DisableDependentServices)
-	n.AddAttribute("enable_shared_vpc_host_project", optional.EnableSharedVpcHostProject)
-	n.AddAttribute("lien", optional.Lien)
-	n.AddAttribute("bucket_labels", optional.BucketLabels)
-	n.AddAttribute("default_network_tier", optional.DefaultNetworkTier)
-	n.AddAttribute("bucket_ula", optional.BucketUla)
-	n.AddAttribute("create_project_sa", optional.CreateProjectSa)
+	n.AddAttribute("grant_network_role", optional.GrantNetworkRole)
 	n.AddAttribute("labels", optional.Labels)
-	n.AddAttribute("bucket_pap", optional.BucketPap)
+	n.AddAttribute("vpc_service_control_attach_enabled", optional.VpcServiceControlAttachEnabled)
+	n.AddAttribute("consumer_quotas", optional.ConsumerQuotas)
+	n.AddAttribute("grant_services_security_admin_role", optional.GrantServicesSecurityAdminRole)
+	n.AddAttribute("disable_dependent_services", optional.DisableDependentServices)
+	n.AddAttribute("disable_services_on_destroy", optional.DisableServicesOnDestroy)
+	n.AddAttribute("project_sa_name", optional.ProjectSaName)
+	n.AddAttribute("lien", optional.Lien)
+	n.AddAttribute("bucket_force_destroy", optional.BucketForceDestroy)
+	n.AddAttribute("budget_alert_spent_percents", optional.BudgetAlertSpentPercents)
+	n.AddAttribute("shared_vpc_subnets", optional.SharedVpcSubnets)
+	n.AddAttribute("default_service_account", optional.DefaultServiceAccount)
+	n.AddAttribute("essential_contacts", optional.EssentialContacts)
+	n.AddAttribute("budget_display_name", optional.BudgetDisplayName)
+	n.AddAttribute("bucket_labels", optional.BucketLabels)
+	n.AddAttribute("usage_bucket_name", optional.UsageBucketName)
+	n.AddAttribute("bucket_name", optional.BucketName)
+	n.AddAttribute("auto_create_network", optional.AutoCreateNetwork)
+	n.AddAttribute("bucket_versioning", optional.BucketVersioning)
+	n.AddAttribute("vpc_service_control_perimeter_name", optional.VpcServiceControlPerimeterName)
+	n.AddAttribute("group_role", optional.GroupRole)
+	n.AddAttribute("budget_monitoring_notification_channels", optional.BudgetMonitoringNotificationChannels)
+	n.AddAttribute("budget_alert_pubsub_topic", optional.BudgetAlertPubsubTopic)
+	n.AddAttribute("bucket_ula", optional.BucketUla)
+	n.AddAttribute("project_id", optional.ProjectId)
+	n.AddAttribute("activate_apis", optional.ActivateApis)
+	n.AddAttribute("activate_api_identities", optional.ActivateApiIdentities)
+	n.AddAttribute("budget_labels", optional.BudgetLabels)
+	n.AddAttribute("default_network_tier", optional.DefaultNetworkTier)
 	return n
 }
 
 // Getters for output references from the module
-func (m Mod) GetProjectBucketUrlRef() string {
-	return m.GetRef("project_bucket_url")
-}
-
-func (m Mod) GetProjectIdRef() string {
-	return m.GetRef("project_id")
-}
-
-func (m Mod) GetProjectNumberRef() string {
-	return m.GetRef("project_number")
+func (m Mod) GetProjectNameRef() string {
+	return m.Ref("project_name")
 }
 
 func (m Mod) GetDomainRef() string {
-	return m.GetRef("domain")
-}
-
-func (m Mod) GetGroupEmailRef() string {
-	return m.GetRef("group_email")
-}
-
-func (m Mod) GetServiceAccountIdRef() string {
-	return m.GetRef("service_account_id")
-}
-
-func (m Mod) GetServiceAccountUniqueIdRef() string {
-	return m.GetRef("service_account_unique_id")
-}
-
-func (m Mod) GetProjectBucketSelfLinkRef() string {
-	return m.GetRef("project_bucket_self_link")
-}
-
-func (m Mod) GetApiSAccountRef() string {
-	return m.GetRef("api_s_account")
-}
-
-func (m Mod) GetEnabledApisRef() string {
-	return m.GetRef("enabled_apis")
-}
-
-func (m Mod) GetEnabledApiIdentitiesRef() string {
-	return m.GetRef("enabled_api_identities")
-}
-
-func (m Mod) GetProjectNameRef() string {
-	return m.GetRef("project_name")
-}
-
-func (m Mod) GetServiceAccountDisplayNameRef() string {
-	return m.GetRef("service_account_display_name")
+	return m.Ref("domain")
 }
 
 func (m Mod) GetServiceAccountNameRef() string {
-	return m.GetRef("service_account_name")
+	return m.Ref("service_account_name")
 }
 
-func (m Mod) GetServiceAccountEmailRef() string {
-	return m.GetRef("service_account_email")
+func (m Mod) GetProjectBucketUrlRef() string {
+	return m.Ref("project_bucket_url")
 }
 
 func (m Mod) GetApiSAccountFmtRef() string {
-	return m.GetRef("api_s_account_fmt")
+	return m.Ref("api_s_account_fmt")
+}
+
+func (m Mod) GetServiceAccountEmailRef() string {
+	return m.Ref("service_account_email")
+}
+
+func (m Mod) GetProjectBucketSelfLinkRef() string {
+	return m.Ref("project_bucket_self_link")
+}
+
+func (m Mod) GetEnabledApiIdentitiesRef() string {
+	return m.Ref("enabled_api_identities")
+}
+
+func (m Mod) GetProjectIdRef() string {
+	return m.Ref("project_id")
+}
+
+func (m Mod) GetGroupEmailRef() string {
+	return m.Ref("group_email")
+}
+
+func (m Mod) GetServiceAccountIdRef() string {
+	return m.Ref("service_account_id")
+}
+
+func (m Mod) GetServiceAccountDisplayNameRef() string {
+	return m.Ref("service_account_display_name")
+}
+
+func (m Mod) GetServiceAccountUniqueIdRef() string {
+	return m.Ref("service_account_unique_id")
+}
+
+func (m Mod) GetEnabledApisRef() string {
+	return m.Ref("enabled_apis")
+}
+
+func (m Mod) GetProjectNumberRef() string {
+	return m.Ref("project_number")
+}
+
+func (m Mod) GetApiSAccountRef() string {
+	return m.Ref("api_s_account")
 }
 
 func (m Mod) GetBudgetNameRef() string {
-	return m.GetRef("budget_name")
+	return m.Ref("budget_name")
 }
 
 // Setters for setting references as inputs
-func (m *Mod) SetProjectSaNameAsRef(ref string) {
-	m.AddAttribute("project_sa_name", ref)
+func (m *Mod) SetBucketLocationAsRef(ref string) {
+	m.AddAttribute("bucket_location", ref)
 }
 
-func (m *Mod) SetUsageBucketPrefixAsRef(ref string) {
-	m.AddAttribute("usage_bucket_prefix", ref)
+func (m *Mod) SetBucketLabelsAsRef(ref string) {
+	m.AddAttribute("bucket_labels", ref)
 }
 
-func (m *Mod) SetSharedVpcSubnetsAsRef(ref string) {
-	m.AddAttribute("shared_vpc_subnets", ref)
+func (m *Mod) SetBucketForceDestroyAsRef(ref string) {
+	m.AddAttribute("bucket_force_destroy", ref)
 }
 
-func (m *Mod) SetDefaultServiceAccountAsRef(ref string) {
-	m.AddAttribute("default_service_account", ref)
+func (m *Mod) SetOrgIdAsRef(ref string) {
+	m.AddAttribute("org_id", ref)
 }
 
-func (m *Mod) SetDisableDependentServicesAsRef(ref string) {
-	m.AddAttribute("disable_dependent_services", ref)
-}
-
-func (m *Mod) SetBudgetAlertSpentPercentsAsRef(ref string) {
-	m.AddAttribute("budget_alert_spent_percents", ref)
-}
-
-func (m *Mod) SetVpcServiceControlPerimeterNameAsRef(ref string) {
-	m.AddAttribute("vpc_service_control_perimeter_name", ref)
-}
-
-func (m *Mod) SetNameAsRef(ref string) {
-	m.AddAttribute("name", ref)
+func (m *Mod) SetDomainAsRef(ref string) {
+	m.AddAttribute("domain", ref)
 }
 
 func (m *Mod) SetFolderIdAsRef(ref string) {
 	m.AddAttribute("folder_id", ref)
-}
-
-func (m *Mod) SetGroupNameAsRef(ref string) {
-	m.AddAttribute("group_name", ref)
 }
 
 func (m *Mod) SetSaRoleAsRef(ref string) {
@@ -240,146 +224,162 @@ func (m *Mod) SetBucketProjectAsRef(ref string) {
 	m.AddAttribute("bucket_project", ref)
 }
 
-func (m *Mod) SetBudgetAlertSpendBasisAsRef(ref string) {
-	m.AddAttribute("budget_alert_spend_basis", ref)
-}
-
-func (m *Mod) SetUsageBucketNameAsRef(ref string) {
-	m.AddAttribute("usage_bucket_name", ref)
-}
-
-func (m *Mod) SetBucketNameAsRef(ref string) {
-	m.AddAttribute("bucket_name", ref)
-}
-
 func (m *Mod) SetBudgetAlertPubsubTopicAsRef(ref string) {
 	m.AddAttribute("budget_alert_pubsub_topic", ref)
 }
 
-func (m *Mod) SetGrantNetworkRoleAsRef(ref string) {
-	m.AddAttribute("grant_network_role", ref)
+func (m *Mod) SetBudgetAlertSpentPercentsAsRef(ref string) {
+	m.AddAttribute("budget_alert_spent_percents", ref)
 }
 
-func (m *Mod) SetConsumerQuotasAsRef(ref string) {
-	m.AddAttribute("consumer_quotas", ref)
-}
-
-func (m *Mod) SetOrgIdAsRef(ref string) {
-	m.AddAttribute("org_id", ref)
-}
-
-func (m *Mod) SetGroupRoleAsRef(ref string) {
-	m.AddAttribute("group_role", ref)
-}
-
-func (m *Mod) SetActivateApiIdentitiesAsRef(ref string) {
-	m.AddAttribute("activate_api_identities", ref)
-}
-
-func (m *Mod) SetBucketUlaAsRef(ref string) {
-	m.AddAttribute("bucket_ula", ref)
-}
-
-func (m *Mod) SetLanguageTagAsRef(ref string) {
-	m.AddAttribute("language_tag", ref)
-}
-
-func (m *Mod) SetEnableSharedVpcHostProjectAsRef(ref string) {
-	m.AddAttribute("enable_shared_vpc_host_project", ref)
-}
-
-func (m *Mod) SetBillingAccountAsRef(ref string) {
-	m.AddAttribute("billing_account", ref)
-}
-
-func (m *Mod) SetBucketForceDestroyAsRef(ref string) {
-	m.AddAttribute("bucket_force_destroy", ref)
-}
-
-func (m *Mod) SetLienAsRef(ref string) {
-	m.AddAttribute("lien", ref)
-}
-
-func (m *Mod) SetBudgetDisplayNameAsRef(ref string) {
-	m.AddAttribute("budget_display_name", ref)
-}
-
-func (m *Mod) SetBudgetLabelsAsRef(ref string) {
-	m.AddAttribute("budget_labels", ref)
-}
-
-func (m *Mod) SetBucketPapAsRef(ref string) {
-	m.AddAttribute("bucket_pap", ref)
-}
-
-func (m *Mod) SetVpcServiceControlAttachEnabledAsRef(ref string) {
-	m.AddAttribute("vpc_service_control_attach_enabled", ref)
-}
-
-func (m *Mod) SetDomainAsRef(ref string) {
-	m.AddAttribute("domain", ref)
-}
-
-func (m *Mod) SetCreateProjectSaAsRef(ref string) {
-	m.AddAttribute("create_project_sa", ref)
-}
-
-func (m *Mod) SetActivateApisAsRef(ref string) {
-	m.AddAttribute("activate_apis", ref)
-}
-
-func (m *Mod) SetLabelsAsRef(ref string) {
-	m.AddAttribute("labels", ref)
-}
-
-func (m *Mod) SetBucketLocationAsRef(ref string) {
-	m.AddAttribute("bucket_location", ref)
-}
-
-func (m *Mod) SetBucketLabelsAsRef(ref string) {
-	m.AddAttribute("bucket_labels", ref)
-}
-
-func (m *Mod) SetRandomProjectIdAsRef(ref string) {
-	m.AddAttribute("random_project_id", ref)
-}
-
-func (m *Mod) SetProjectIdAsRef(ref string) {
-	m.AddAttribute("project_id", ref)
-}
-
-func (m *Mod) SetBucketVersioningAsRef(ref string) {
-	m.AddAttribute("bucket_versioning", ref)
-}
-
-func (m *Mod) SetAutoCreateNetworkAsRef(ref string) {
-	m.AddAttribute("auto_create_network", ref)
-}
-
-func (m *Mod) SetBudgetAmountAsRef(ref string) {
-	m.AddAttribute("budget_amount", ref)
-}
-
-func (m *Mod) SetGrantServicesSecurityAdminRoleAsRef(ref string) {
-	m.AddAttribute("grant_services_security_admin_role", ref)
-}
-
-func (m *Mod) SetSvpcHostProjectIdAsRef(ref string) {
-	m.AddAttribute("svpc_host_project_id", ref)
-}
-
-func (m *Mod) SetDisableServicesOnDestroyAsRef(ref string) {
-	m.AddAttribute("disable_services_on_destroy", ref)
-}
-
-func (m *Mod) SetBudgetMonitoringNotificationChannelsAsRef(ref string) {
-	m.AddAttribute("budget_monitoring_notification_channels", ref)
+func (m *Mod) SetBudgetAlertSpendBasisAsRef(ref string) {
+	m.AddAttribute("budget_alert_spend_basis", ref)
 }
 
 func (m *Mod) SetDefaultNetworkTierAsRef(ref string) {
 	m.AddAttribute("default_network_tier", ref)
 }
 
+func (m *Mod) SetConsumerQuotasAsRef(ref string) {
+	m.AddAttribute("consumer_quotas", ref)
+}
+
+func (m *Mod) SetRandomProjectIdAsRef(ref string) {
+	m.AddAttribute("random_project_id", ref)
+}
+
+func (m *Mod) SetUsageBucketNameAsRef(ref string) {
+	m.AddAttribute("usage_bucket_name", ref)
+}
+
+func (m *Mod) SetLabelsAsRef(ref string) {
+	m.AddAttribute("labels", ref)
+}
+
+func (m *Mod) SetBucketNameAsRef(ref string) {
+	m.AddAttribute("bucket_name", ref)
+}
+
+func (m *Mod) SetBucketUlaAsRef(ref string) {
+	m.AddAttribute("bucket_ula", ref)
+}
+
+func (m *Mod) SetAutoCreateNetworkAsRef(ref string) {
+	m.AddAttribute("auto_create_network", ref)
+}
+
+func (m *Mod) SetNameAsRef(ref string) {
+	m.AddAttribute("name", ref)
+}
+
+func (m *Mod) SetProjectIdAsRef(ref string) {
+	m.AddAttribute("project_id", ref)
+}
+
+func (m *Mod) SetActivateApisAsRef(ref string) {
+	m.AddAttribute("activate_apis", ref)
+}
+
+func (m *Mod) SetSharedVpcSubnetsAsRef(ref string) {
+	m.AddAttribute("shared_vpc_subnets", ref)
+}
+
+func (m *Mod) SetBucketVersioningAsRef(ref string) {
+	m.AddAttribute("bucket_versioning", ref)
+}
+
+func (m *Mod) SetBillingAccountAsRef(ref string) {
+	m.AddAttribute("billing_account", ref)
+}
+
+func (m *Mod) SetDefaultServiceAccountAsRef(ref string) {
+	m.AddAttribute("default_service_account", ref)
+}
+
+func (m *Mod) SetGrantServicesSecurityAdminRoleAsRef(ref string) {
+	m.AddAttribute("grant_services_security_admin_role", ref)
+}
+
+func (m *Mod) SetLanguageTagAsRef(ref string) {
+	m.AddAttribute("language_tag", ref)
+}
+
+func (m *Mod) SetBucketPapAsRef(ref string) {
+	m.AddAttribute("bucket_pap", ref)
+}
+
+func (m *Mod) SetDisableDependentServicesAsRef(ref string) {
+	m.AddAttribute("disable_dependent_services", ref)
+}
+
+func (m *Mod) SetVpcServiceControlPerimeterNameAsRef(ref string) {
+	m.AddAttribute("vpc_service_control_perimeter_name", ref)
+}
+
+func (m *Mod) SetEnableSharedVpcHostProjectAsRef(ref string) {
+	m.AddAttribute("enable_shared_vpc_host_project", ref)
+}
+
+func (m *Mod) SetGroupRoleAsRef(ref string) {
+	m.AddAttribute("group_role", ref)
+}
+
+func (m *Mod) SetCreateProjectSaAsRef(ref string) {
+	m.AddAttribute("create_project_sa", ref)
+}
+
 func (m *Mod) SetEssentialContactsAsRef(ref string) {
 	m.AddAttribute("essential_contacts", ref)
+}
+
+func (m *Mod) SetDisableServicesOnDestroyAsRef(ref string) {
+	m.AddAttribute("disable_services_on_destroy", ref)
+}
+
+func (m *Mod) SetBudgetAmountAsRef(ref string) {
+	m.AddAttribute("budget_amount", ref)
+}
+
+func (m *Mod) SetBudgetDisplayNameAsRef(ref string) {
+	m.AddAttribute("budget_display_name", ref)
+}
+
+func (m *Mod) SetSvpcHostProjectIdAsRef(ref string) {
+	m.AddAttribute("svpc_host_project_id", ref)
+}
+
+func (m *Mod) SetGroupNameAsRef(ref string) {
+	m.AddAttribute("group_name", ref)
+}
+
+func (m *Mod) SetProjectSaNameAsRef(ref string) {
+	m.AddAttribute("project_sa_name", ref)
+}
+
+func (m *Mod) SetActivateApiIdentitiesAsRef(ref string) {
+	m.AddAttribute("activate_api_identities", ref)
+}
+
+func (m *Mod) SetLienAsRef(ref string) {
+	m.AddAttribute("lien", ref)
+}
+
+func (m *Mod) SetUsageBucketPrefixAsRef(ref string) {
+	m.AddAttribute("usage_bucket_prefix", ref)
+}
+
+func (m *Mod) SetBudgetMonitoringNotificationChannelsAsRef(ref string) {
+	m.AddAttribute("budget_monitoring_notification_channels", ref)
+}
+
+func (m *Mod) SetBudgetLabelsAsRef(ref string) {
+	m.AddAttribute("budget_labels", ref)
+}
+
+func (m *Mod) SetVpcServiceControlAttachEnabledAsRef(ref string) {
+	m.AddAttribute("vpc_service_control_attach_enabled", ref)
+}
+
+func (m *Mod) SetGrantNetworkRoleAsRef(ref string) {
+	m.AddAttribute("grant_network_role", ref)
 }

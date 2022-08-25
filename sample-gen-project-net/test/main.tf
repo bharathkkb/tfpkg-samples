@@ -3,16 +3,16 @@ module "net-project" {
 
   name              = var.project_name
   billing_account   = "123"
-  folder_id         = "789"
   random_project_id = true
   org_id            = "456"
+  folder_id         = "789"
 }
 
 module "prod-net" {
   source = "terraform-google-modules/network/google"
 
-  network_name = "bar"
   project_id   = module.net-project.project_id
+  network_name = "bar"
   subnets = [{
     subnet_ip     = "10.10.10.0/24"
     subnet_name   = "subnet-01"
@@ -23,3 +23,4 @@ module "prod-net" {
     subnet_region = "us-east1"
   }]
 }
+
